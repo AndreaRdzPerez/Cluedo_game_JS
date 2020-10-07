@@ -174,7 +174,6 @@ let roomsArray = [
 
 //Guess random item from each array and constructs the mystery
 function pickMystery(){
-  console.log("refresh")
   let suspect = suspectsArray[Math.floor(Math.random() * suspectsArray.length)]
   let weapon = weaponsArray[Math.floor(Math.random() * weaponsArray.length)]
   let room = roomsArray[Math.floor(Math.random() * roomsArray.length)]
@@ -194,13 +193,12 @@ console.log(
 
 //console.log(Math.random() * 5) //Random number between 0 and 5
 
-//showArrays(suspectsArray)
-//showArrays(weaponsArray)
-//showArrays(roomsArray)
+let suspectList = showArrays(suspectsArray)
+showArrays(weaponsArray)
+showArrays(roomsArray)
 
-//Loops through all of our arrays ans shows all the posibilities
+//Loops through all of our arrays ans shows all the posibilities in a HTML list
 function showArrays(arr){
-  console.log(arr)
   arr.forEach(function(eachItem){
     document.body.innerHTML +=`<li> ${eachItem.name}</li>`
   })
@@ -214,14 +212,44 @@ function guess(){
   let guessedSuspect = document.querySelector('#suspect').value
   let guessedWeapon = document.querySelector('#weapon').value
   let guessedRoom = document.querySelector('#room').value
-  console.log(guessedSuspect, guessedWeapon, guessedRoom)
-if(guessedSuspect === mystery.suspect.name && guessedWeapon === mystery.weapon.name && guessedRoom === mystery.room.name)
+  if(
+    guessedSuspect === mystery.suspect.name
+    && guessedWeapon === mystery.weapon.name
+    && guessedRoom === mystery.room.name )
   {
-    alert("You won")
+    alert("So clever! You got it! You win!")
   }else{
-    alert("Sorry try again")
-    alert(mystery.suspect.name + 'killed Mr.Boddy in the ' + mystery.room.name + 'with the ' + mystery.weapon.name)
+    alert("Oh oh! Sorry try again")
+    alert(mystery.suspect.name + ' killed Mr.Boddy in the ' + mystery.room.name + ' with the ' + mystery.weapon.name)
   }
 document.body.innerHTML = `<img src=${mystery.suspect.image} />`
 
 }
+
+var options = [
+        set0 = suspectsArray,
+        set1 = weaponsArray,
+        set2 = roomsArray
+    ];
+
+function makeUL(array) {
+    // Create the list element:
+    var list = document.createElement('ul');
+
+    for (var i = 0; i < array.length; i++) {
+        // Create the list item:
+        var item = document.createElement('li');
+
+        // Set its contents:
+        item.appendChild(document.createTextNode(array[i]));
+
+        // Add it to the list:
+        list.appendChild(item);
+    }
+
+    // Finally, return the constructed list:
+    return list;
+}
+
+// Add the contents of options[0] to #foo:
+
